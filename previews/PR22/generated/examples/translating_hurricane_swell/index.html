@@ -14,8 +14,8 @@ grid = RectilinearGrid(CPU();
                        x        = (0, Lx),
                        y        = (-Ly/2, Ly/2),
                        z        = (-1.0, 0.0),
-                       topology = (Periodic, Periodic, Bounded));</code></pre><p>Spectral grid: 12 logarithmically spaced frequencies × 12 directions. 12 directions (30° bins) keeps the transverse-spreading fan visible without making the per-step source-term loop too expensive.</p><pre><code class="language-julia hljs">NFREQ = 12
-NDIR  = 12
+                       topology = (Periodic, Periodic, Bounded));</code></pre><p>Spectral grid: 12 logarithmically spaced frequencies × 24 directions. Twenty-four direction bins (15° spacing) are needed to keep the transverse swell wings smooth; with only 12 bins the garden-sprinkler spokes are visible even with <code>SpatialAveraging</code> smoothing on.</p><pre><code class="language-julia hljs">NFREQ = 12
+NDIR  = 24
 f0    = 0.04118
 xfr   = 1.15
 spectral_grid = FrequencyDirectionGrid(;
@@ -72,7 +72,7 @@ title    = @lift @sprintf(&quot;Translating Holland TC (U_t = %.0f m/s) — t = 
                           U_translation, times[$n] / 1day)
 
 fig = Figure(size = (1000, 540))
-Label(fig[0, :], title; fontsize = 18, halign = :center, font = :bold)
+Label(fig[0, :], title; fontsize = 18, halign = :center, font = :bold, tellwidth = false)
 ax  = Axis(fig[1, 1]; xlabel = &quot;x (km)&quot;, ylabel = &quot;y (km)&quot;, aspect = DataAspect())
 hm  = heatmap!(ax, Hs_n; colormap = :viridis, colorrange = (0, hs_max))
 lines!(ax, trail_xn, trail_yn; color = :white, linewidth = 2)
@@ -84,17 +84,17 @@ Colorbar(fig[1, 2], hm; label = &quot;Hs (m)&quot;)
 record(fig, &quot;translating_hurricane_swell.mp4&quot;, 1:nframes; framerate = 12) do nn
     n[] = nn
 end</code></pre><p><video src="../translating_hurricane_swell.mp4" controls="true" title><a href="../translating_hurricane_swell.mp4"></a></video></p><hr/><h3 id="Julia-version-and-environment-information"><a class="docs-heading-anchor" href="#Julia-version-and-environment-information">Julia version and environment information</a><a id="Julia-version-and-environment-information-1"></a><a class="docs-heading-anchor-permalink" href="#Julia-version-and-environment-information" title="Permalink"></a></h3><p>This example was executed with the following version of Julia:</p><pre><code class="language-julia hljs">using InteractiveUtils: versioninfo
-versioninfo()</code></pre><pre><code class="nohighlight hljs">Julia Version 1.10.11
-Commit a2b11907d7b (2026-03-09 14:59 UTC)
+versioninfo()</code></pre><pre><code class="nohighlight hljs">Julia Version 1.12.6
+Commit 15346901f00 (2026-04-09 19:20 UTC)
 Build Info:
-  Official https://julialang.org/ release
+  Official https://julialang.org release
 Platform Info:
   OS: Linux (x86_64-linux-gnu)
   CPU: 4 × AMD EPYC 9V74 80-Core Processor
   WORD_SIZE: 64
-  LIBM: libopenlibm
-  LLVM: libLLVM-15.0.7 (ORCJIT, znver3)
-Threads: 1 default, 0 interactive, 1 GC (on 4 virtual cores)
+  LLVM: libLLVM-18.1.7 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 1 default, 1 interactive, 1 GC (on 4 virtual cores)
 </code></pre><p>These were the top-level packages installed in the environment:</p><pre><code class="language-julia hljs">import Pkg
 Pkg.status()</code></pre><pre><code class="nohighlight hljs">Status `~/work/Ripple.jl/Ripple.jl/docs/Project.toml`
   [13f3f980] CairoMakie v0.15.10
@@ -104,4 +104,4 @@ Pkg.status()</code></pre><pre><code class="nohighlight hljs">Status `~/work/Ripp
 ⌃ [9e8cae18] Oceananigans v0.107.6
   [c2bd03f4] Ripple v0.1.0 `~/work/Ripple.jl/Ripple.jl`
 Info Packages marked with ⌃ have new versions available and may be upgradable.
-</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../vortex_refraction/">« Wave Refraction Through A Barotropic Vortex</a><a class="docs-footer-nextpage" href="../../../references/">References »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Monday 18 May 2026 03:58">Monday 18 May 2026</span>. Using Julia version 1.10.11.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../vortex_refraction/">« Wave Refraction Through A Barotropic Vortex</a><a class="docs-footer-nextpage" href="../../../references/">References »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Monday 18 May 2026 04:47">Monday 18 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
