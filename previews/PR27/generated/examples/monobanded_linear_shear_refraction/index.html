@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Monobanded Linear-Shear Refraction · Ripple.jl</title><meta name="title" content="Monobanded Linear-Shear Refraction · Ripple.jl"/><meta property="og:title" content="Monobanded Linear-Shear Refraction · Ripple.jl"/><meta property="twitter:title" content="Monobanded Linear-Shear Refraction · Ripple.jl"/><meta name="description" content="Documentation for Ripple.jl."/><meta property="og:description" content="Documentation for Ripple.jl."/><meta property="twitter:description" content="Documentation for Ripple.jl."/><meta property="og:url" content="https://NumericalEarth.github.io/RippleDocumentation/stable/generated/examples/monobanded_linear_shear_refraction/"/><meta property="twitter:url" content="https://NumericalEarth.github.io/RippleDocumentation/stable/generated/examples/monobanded_linear_shear_refraction/"/><link rel="canonical" href="https://NumericalEarth.github.io/RippleDocumentation/stable/generated/examples/monobanded_linear_shear_refraction/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script><link href="../../../assets/citations.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">Ripple.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><a class="tocitem" href="../../../notation/">Notation</a></li><li><a class="tocitem" href="../../../theory/">Theory and Numerics</a></li><li><a class="tocitem" href="../../../model_api/">Model API</a></li><li><a class="tocitem" href="../../../monobanded_model/">Monobanded Model</a></li><li><a class="tocitem" href="../../../finite_volume_integration/">Finite-Volume Integration</a></li><li><a class="tocitem" href="../../../api_reference/">API Reference</a></li><li><span class="tocitem">Examples</span><ul><li><a class="tocitem" href="../../../examples/">Overview</a></li><li><a class="tocitem" href="../quick_start/">Quick Start</a></li><li><a class="tocitem" href="../source_only_fetch_limited_growth/">Source-Only Fetch-Limited Growth</a></li><li><a class="tocitem" href="../bounded_wave_packet_dispersion/">Bounded Wave Packet Dispersion</a></li><li><a class="tocitem" href="../spectral_refraction_by_shear/">Spectral Refraction by a Sheared Current</a></li><li><a class="tocitem" href="../vortex_refraction/">Wave Refraction Through A Barotropic Vortex</a></li><li class="is-active"><a class="tocitem" href>Monobanded Linear-Shear Refraction</a><ul class="internal"><li><a class="tocitem" href="#Grid-and-current"><span>Grid and current</span></a></li><li><a class="tocitem" href="#Model-and-initial-state"><span>Model and initial state</span></a></li><li><a class="tocitem" href="#Quasi-analytic-reference"><span>Quasi-analytic reference</span></a></li><li><a class="tocitem" href="#Diagnostics-helpers"><span>Diagnostics helpers</span></a></li><li><a class="tocitem" href="#Quantitative-checks"><span>Quantitative checks</span></a></li><li><a class="tocitem" href="#Movie"><span>Movie</span></a></li><li><a class="tocitem" href="#Final-comparison-figure"><span>Final comparison figure</span></a></li><li><a class="tocitem" href="#Diagnostic-figure"><span>Diagnostic figure</span></a></li></ul></li><li><a class="tocitem" href="../coupled_wind_drift_instability/">Coupled Wind-Drift Instability</a></li><li><a class="tocitem" href="../translating_hurricane_swell/">Swell Generation by a Translating Idealized Hurricane</a></li></ul></li><li><a class="tocitem" href="../../../references/">References</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Monobanded Linear-Shear Refraction</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Monobanded Linear-Shear Refraction</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/NumericalEarth/Ripple.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/NumericalEarth/Ripple.jl/blob/main/examples/monobanded_linear_shear_refraction.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Monobanded-Linear-Shear-Refraction"><a class="docs-heading-anchor" href="#Monobanded-Linear-Shear-Refraction">Monobanded Linear-Shear Refraction</a><a id="Monobanded-Linear-Shear-Refraction-1"></a><a class="docs-heading-anchor-permalink" href="#Monobanded-Linear-Shear-Refraction" title="Permalink"></a></h1><p>This example validates <code>MonobandedWaveModel</code> against a quasi-analytic solution. A compact monobanded wave-action packet propagates through a barotropic linear shear current</p><p class="math-container">\[u^D_x(y) = U_0 + S (y - y_c), \qquad u^D_y = 0 .\]</p><p>For a depth-independent current, the Q projection leaves the current unchanged and <span>$H = \partial u^D / \partial \kappa = 0$</span>. The fixed-κ current gradient is spatially constant:</p><p class="math-container">\[\Gamma_{xy} = \partial_y u^D_x = S .\]</p><p>Starting from uniform wavevector <span>$K(0) = (K_{x0}, K_{y0})$</span>, the monobanded moment equation predicts</p><p class="math-container">\[K_x(t) = K_{x0}, \qquad
+K_y(t) = K_{y0} - S K_{x0} t .\]</p><p>Since <span>$K(t)$</span> stays spatially uniform, the packet position follows an analytic ray map. We use that map to overlay reference contours in the movie and to compute quantitative errors.</p><pre><code class="language-julia hljs">using Oceananigans, Ripple
+using CairoMakie
+using Printf
+
+CairoMakie.activate!(type = &quot;png&quot;)
+
+output_dir = get(ENV, &quot;RIPPLE_EXAMPLE_OUTPUT_DIR&quot;, pwd())
+mkpath(output_dir)</code></pre><pre><code class="nohighlight hljs">&quot;/home/runner/work/Ripple.jl/Ripple.jl/docs/src/generated/examples&quot;</code></pre><h2 id="Grid-and-current"><a class="docs-heading-anchor" href="#Grid-and-current">Grid and current</a><a id="Grid-and-current-1"></a><a class="docs-heading-anchor-permalink" href="#Grid-and-current" title="Permalink"></a></h2><p>The monobanded transport discretization currently assumes uniform horizontal spacing. We use a periodic x direction so the packet can translate freely, and a bounded y direction. The packet remains well away from the y boundaries over the run, so the reference solution is the unbounded linear shear solution. Bump <code>Nx</code>, <code>Ny</code>, the frame count, and lower <code>dt</code> for a higher-fidelity reproduction.</p><pre><code class="language-julia hljs">Nx = 48
+Ny = 36
+Nz = 4
+
+Lx = 72.0
+Ly = 48.0
+Lz = 1.0
+
+grid = RectilinearGrid(CPU();
+                       size     = (Nx, Ny, Nz),
+                       halo     = (3, 3, 3),
+                       x        = (0, Lx),
+                       y        = (0, Ly),
+                       z        = (-Lz, 0),
+                       topology = (Periodic, Bounded, Bounded))
+
+x_nodes = collect(xnodes(grid))
+y_nodes = collect(ynodes(grid))
+
+U0 = 0.10
+S = 0.045
+yc = Ly / 2
+
+u = Oceananigans.Fields.CenterField(grid)
+v = Oceananigans.Fields.CenterField(grid)
+set!(u, (x, y, z) -&gt; U0 + S * (y - yc))
+set!(v, 0)</code></pre><pre><code class="nohighlight hljs">48×36×4 Field{Center, Center, Center} on RectilinearGrid on CPU
+├── grid: 48×36×4 RectilinearGrid{Float64, Periodic, Bounded, Bounded} on CPU with 3×3×3 halo
+├── boundary conditions: FieldBoundaryConditions
+│   └── west: Periodic, east: Periodic, south: ZeroFlux, north: ZeroFlux, bottom: ZeroFlux, top: ZeroFlux, immersed: Nothing
+└── data: 54×42×10 OffsetArray(::Array{Float64, 3}, -2:51, -2:39, -2:7) with eltype Float64 with indices -2:51×-2:39×-2:7
+    └── max=0.0, min=0.0, mean=0.0</code></pre><h2 id="Model-and-initial-state"><a class="docs-heading-anchor" href="#Model-and-initial-state">Model and initial state</a><a id="Model-and-initial-state-1"></a><a class="docs-heading-anchor-permalink" href="#Model-and-initial-state" title="Permalink"></a></h2><pre><code class="language-julia hljs">Kx0 = 0.50
+Ky0 = 0.18
+
+x0_packet = 18.0
+y0_packet = 17.0
+σx = 4.2
+σy = 3.2
+
+periodic_displacement(x, x0, L) = mod(x - x0 + L / 2, L) - L / 2
+
+function initial_action(x, y)
+    dx = periodic_displacement(x, x0_packet, Lx)
+    dy = y - y0_packet
+    return exp(-0.5 * ((dx / σx)^2 + (dy / σy)^2))
+end
+
+model = MonobandedWaveModel(grid;
+                            velocities       = PrescribedVelocities(; u, v),
+                            advection        = WENO(order = 5),
+                            timestepper = :RungeKutta3,
+                            minimum_action   = 1e-8,
+                            minimum_wavenumber = 0.05)
+
+set!(model;
+     A   = (x, y, z) -&gt; initial_action(x, y),
+     AKx = (x, y, z) -&gt; Kx0 * initial_action(x, y),
+     AKy = (x, y, z) -&gt; Ky0 * initial_action(x, y))
+</code></pre><h2 id="Quasi-analytic-reference"><a class="docs-heading-anchor" href="#Quasi-analytic-reference">Quasi-analytic reference</a><a id="Quasi-analytic-reference-1"></a><a class="docs-heading-anchor-permalink" href="#Quasi-analytic-reference" title="Permalink"></a></h2><p>With <span>$\kappa(t) = |K(t)|$</span> and <span>$\alpha(t) = \sqrt{g / [4\kappa(t)^3]}$</span>, the ray velocity is</p><p class="math-container">\[\dot y = \alpha(t) K_y(t),\]</p><p class="math-container">\[\dot x = \alpha(t) K_x + U_0 + S (y - y_c).\]</p><p>Define <span>$\eta(t) = \int_0^t \dot y(s) ds$</span>, <span>$\xi(t) = \int_0^t [\alpha(s) K_x + U_0] ds$</span>, and <span>$I_\eta(t) = \int_0^t \eta(s) ds$</span>. The inverse ray map is</p><p class="math-container">\[y_0 = y - \eta(t),\]</p><p class="math-container">\[x_0 = x - \xi(t) - S t (y_0 - y_c) - S I_\eta(t).\]</p><pre><code class="language-julia hljs">dt = 0.04
+stop_time = 3.2
+step_count = round(Int, stop_time / dt)
+frame_count = 12
+frame_stride = max(1, step_count ÷ frame_count)
+
+times_full = collect((0:step_count) .* dt)
+g = model.gravitational_acceleration
+
+Ky_reference(t) = Ky0 - S * Kx0 * t
+κ_reference(t) = hypot(Kx0, Ky_reference(t))
+α_reference(t) = sqrt(g / (4 * κ_reference(t)^3))
+Cx_base_reference(t) = α_reference(t) * Kx0 + U0
+Cy_reference(t) = α_reference(t) * Ky_reference(t)
+
+function cumulative_trapezoid(values, Δt)
+    out = zeros(eltype(values), length(values))
+    for n in 2:length(values)
+        out[n] = out[n-1] + (values[n-1] + values[n]) * Δt / 2
+    end
+    return out
+end
+
+cx_base_full = Cx_base_reference.(times_full)
+cy_full = Cy_reference.(times_full)
+η_full = cumulative_trapezoid(cy_full, dt)
+ξ_full = cumulative_trapezoid(cx_base_full, dt)
+Iη_full = cumulative_trapezoid(η_full, dt)
+
+function reference_action(step)
+    t = times_full[step + 1]
+    η = η_full[step + 1]
+    ξ = ξ_full[step + 1]
+    Iη = Iη_full[step + 1]
+
+    return [begin
+                y_initial = y - η
+                x_initial = x - ξ - S * t * (y_initial - yc) - S * Iη
+                initial_action(x_initial, y_initial)
+            end for x in x_nodes, y in y_nodes]
+end
+
+reference_AKx(Aref, step) = Kx0 .* Aref
+reference_AKy(Aref, step) = Ky_reference(times_full[step + 1]) .* Aref</code></pre><pre><code class="nohighlight hljs">reference_AKy (generic function with 1 method)</code></pre><h2 id="Diagnostics-helpers"><a class="docs-heading-anchor" href="#Diagnostics-helpers">Diagnostics helpers</a><a id="Diagnostics-helpers-1"></a><a class="docs-heading-anchor-permalink" href="#Diagnostics-helpers" title="Permalink"></a></h2><pre><code class="language-julia hljs">slab(field) = Array(interior(field))[:, :, 1]
+
+function weighted_mean(field_data, weights)
+    total_weight = sum(weights)
+    return sum(field_data .* weights) / total_weight
+end
+
+function centroid(A)
+    total = sum(A)
+    xbar = sum(A .* reshape(x_nodes, :, 1)) / total
+    ybar = sum(A .* reshape(y_nodes, 1, :)) / total
+    return xbar, ybar
+end
+
+relative_l2(a, b) = sqrt(sum(abs2, a .- b) / max(sum(abs2, b), eps(eltype(b))))
+
+function snapshot(step)
+    A = slab(model.action)
+    AKx = slab(model.wavenumber_moment.x)
+    AKy = slab(model.wavenumber_moment.y)
+    Kx = sum(AKx) / sum(A)
+    Ky = sum(AKy) / sum(A)
+    xbar, ybar = centroid(A)
+
+    Aref = reference_action(step)
+    AKxref = reference_AKx(Aref, step)
+    AKyref = reference_AKy(Aref, step)
+    xref, yref = centroid(Aref)
+
+    return (time = model.clock.time,
+            A = A,
+            Aref = Aref,
+            A_error = A .- Aref,
+            Kx = Kx,
+            Ky = Ky,
+            Kx_ref = Kx0,
+            Ky_ref = Ky_reference(model.clock.time),
+            x = xbar,
+            y = ybar,
+            x_ref = xref,
+            y_ref = yref,
+            mass = sum(A),
+            A_l2 = relative_l2(A, Aref),
+            AKx_l2 = relative_l2(AKx, AKxref),
+            AKy_l2 = relative_l2(AKy, AKyref))
+end
+
+frames = [snapshot(0)]
+
+for step in 1:step_count
+    time_step!(model, dt)
+    if step == step_count || step % frame_stride == 0
+        push!(frames, snapshot(step))
+    end
+end</code></pre><h2 id="Quantitative-checks"><a class="docs-heading-anchor" href="#Quantitative-checks">Quantitative checks</a><a id="Quantitative-checks-1"></a><a class="docs-heading-anchor-permalink" href="#Quantitative-checks" title="Permalink"></a></h2><pre><code class="language-julia hljs">initial_mass = first(frames).mass
+mass_error = maximum(abs(frame.mass / initial_mass - 1) for frame in frames)
+Kx_error = maximum(abs(frame.Kx - frame.Kx_ref) for frame in frames)
+Ky_error = maximum(abs(frame.Ky - frame.Ky_ref) for frame in frames)
+centroid_error = maximum(hypot(frame.x - frame.x_ref, frame.y - frame.y_ref) for frame in frames)
+final_A_l2 = last(frames).A_l2
+
+Γxy = slab(model.diagnostics.Γxy)
+weighted_Γxy = weighted_mean(Γxy, last(frames).A)
+Γxy_error = abs(weighted_Γxy - S)
+
+@printf(&quot;Monobanded linear-shear refraction validation\n&quot;)
+@printf(&quot;  frames: %d, dt: %.4f s, stop_time: %.2f s\n&quot;, length(frames), dt, model.clock.time)
+@printf(&quot;  max relative action-mass error: %.3e\n&quot;, mass_error)
+@printf(&quot;  max |weighted Kx - Kx_ref|: %.3e\n&quot;, Kx_error)
+@printf(&quot;  max |weighted Ky - Ky_ref|: %.3e\n&quot;, Ky_error)
+@printf(&quot;  max centroid error: %.3e m\n&quot;, centroid_error)
+@printf(&quot;  final relative L2(A - Aref): %.3e\n&quot;, final_A_l2)
+@printf(&quot;  |weighted Γxy - S| at final time: %.3e s^-1\n&quot;, Γxy_error)</code></pre><pre><code class="nohighlight hljs">Monobanded linear-shear refraction validation
+  frames: 15, dt: 0.0400 s, stop_time: 3.20 s
+  max relative action-mass error: 3.749e-07
+  max |weighted Kx - Kx_ref|: 1.058e-06
+  max |weighted Ky - Ky_ref|: 2.281e-07
+  max centroid error: 9.562e-03 m
+  final relative L2(A - Aref): 2.460e-02
+  |weighted Γxy - S| at final time: 3.294e-09 s^-1
+</code></pre><h2 id="Movie"><a class="docs-heading-anchor" href="#Movie">Movie</a><a id="Movie-1"></a><a class="docs-heading-anchor-permalink" href="#Movie" title="Permalink"></a></h2><p>The left panel shows the numerical action with dashed analytic contours. The middle panel shows the signed error. The right panel tracks the action-weighted wavevector against the analytic prediction.</p><pre><code class="language-julia hljs">A_limits = (0, maximum(maximum(frame.A) for frame in frames))
+error_limit = maximum(maximum(abs, frame.A_error) for frame in frames)
+error_limits = (-error_limit, error_limit)
+
+A_obs = Observable(first(frames).A)
+Aref_obs = Observable(first(frames).Aref)
+err_obs = Observable(first(frames).A_error)
+title_obs = Observable(@sprintf(&quot;t = %.2f s&quot;, first(frames).time))
+model_centroid_obs = Observable(Point2f(first(frames).x, first(frames).y))
+ref_centroid_obs = Observable(Point2f(first(frames).x_ref, first(frames).y_ref))
+Kx_series_obs = Observable([first(frames).Kx])
+Ky_series_obs = Observable([first(frames).Ky])
+Kx_ref_series_obs = Observable([first(frames).Kx_ref])
+Ky_ref_series_obs = Observable([first(frames).Ky_ref])
+
+fig = Figure(size = (1320, 460))
+ax1 = Axis(fig[1, 1]; title = &quot;A with reference contours&quot;,
+                       xlabel = &quot;x&quot;, ylabel = &quot;y&quot;, aspect = DataAspect())
+ax2 = Axis(fig[1, 3]; title = &quot;A - Aref&quot;,
+                       xlabel = &quot;x&quot;, ylabel = &quot;y&quot;, aspect = DataAspect())
+ax3 = Axis(fig[1, 5]; title = &quot;Action-weighted K(t)&quot;,
+                       xlabel = &quot;Kx&quot;, ylabel = &quot;Ky&quot;, aspect = DataAspect())
+
+hm1 = heatmap!(ax1, x_nodes, y_nodes, A_obs; colormap = :viridis, colorrange = A_limits)
+contour!(ax1, x_nodes, y_nodes, Aref_obs; levels = [0.2, 0.5, 0.8],
+         color = :white, linestyle = :dash, linewidth = 2)
+scatter!(ax1, model_centroid_obs; marker = :circle, color = :black, markersize = 10)
+scatter!(ax1, ref_centroid_obs; marker = :xcross, color = :white, markersize = 14)
+
+hm2 = heatmap!(ax2, x_nodes, y_nodes, err_obs; colormap = :balance, colorrange = error_limits)
+
+lines!(ax3, Kx_ref_series_obs, Ky_ref_series_obs; color = :black, linestyle = :dash,
+       label = &quot;reference&quot;)
+lines!(ax3, Kx_series_obs, Ky_series_obs; color = :dodgerblue3, linewidth = 3,
+       label = &quot;model&quot;)
+axislegend(ax3; position = :lb)
+xlims!(ax3, Kx0 - 0.04, Kx0 + 0.04)
+ky_min = minimum(min(frame.Ky, frame.Ky_ref) for frame in frames)
+ky_max = maximum(max(frame.Ky, frame.Ky_ref) for frame in frames)
+ylims!(ax3, ky_min - 0.03, ky_max + 0.03)
+
+Colorbar(fig[1, 2], hm1)
+Colorbar(fig[1, 4], hm2)
+Label(fig[0, :], title_obs; fontsize = 18, halign = :center)
+
+movie_path = joinpath(output_dir, &quot;monobanded_linear_shear_refraction.mp4&quot;)
+record(fig, movie_path, eachindex(frames); framerate = 12) do idx
+    frame = frames[idx]
+    A_obs[] = frame.A
+    Aref_obs[] = frame.Aref
+    err_obs[] = frame.A_error
+    title_obs[] = @sprintf(&quot;Monobanded refraction through linear shear: t = %.2f s&quot;, frame.time)
+    model_centroid_obs[] = Point2f(frame.x, frame.y)
+    ref_centroid_obs[] = Point2f(frame.x_ref, frame.y_ref)
+    Kx_series_obs[] = [frames[n].Kx for n in 1:idx]
+    Ky_series_obs[] = [frames[n].Ky for n in 1:idx]
+    Kx_ref_series_obs[] = [frames[n].Kx_ref for n in 1:idx]
+    Ky_ref_series_obs[] = [frames[n].Ky_ref for n in 1:idx]
+end</code></pre><pre><code class="nohighlight hljs">&quot;/home/runner/work/Ripple.jl/Ripple.jl/docs/src/generated/examples/monobanded_linear_shear_refraction.mp4&quot;</code></pre><h2 id="Final-comparison-figure"><a class="docs-heading-anchor" href="#Final-comparison-figure">Final comparison figure</a><a id="Final-comparison-figure-1"></a><a class="docs-heading-anchor-permalink" href="#Final-comparison-figure" title="Permalink"></a></h2><pre><code class="language-julia hljs">final = last(frames)
+fig_final = Figure(size = (1260, 380))
+fax1 = Axis(fig_final[1, 1]; title = &quot;Numerical A&quot;, xlabel = &quot;x&quot;, ylabel = &quot;y&quot;,
+                                aspect = DataAspect())
+fax2 = Axis(fig_final[1, 3]; title = &quot;Reference A&quot;, xlabel = &quot;x&quot;, ylabel = &quot;y&quot;,
+                                aspect = DataAspect())
+fax3 = Axis(fig_final[1, 5]; title = &quot;A - Aref&quot;, xlabel = &quot;x&quot;, ylabel = &quot;y&quot;,
+                                aspect = DataAspect())
+fhm1 = heatmap!(fax1, x_nodes, y_nodes, final.A; colormap = :viridis, colorrange = A_limits)
+fhm2 = heatmap!(fax2, x_nodes, y_nodes, final.Aref; colormap = :viridis, colorrange = A_limits)
+fhm3 = heatmap!(fax3, x_nodes, y_nodes, final.A_error; colormap = :balance, colorrange = error_limits)
+Colorbar(fig_final[1, 2], fhm1)
+Colorbar(fig_final[1, 4], fhm2)
+Colorbar(fig_final[1, 6], fhm3)
+Label(fig_final[0, :],
+      @sprintf(&quot;Final comparison: relative L2(A - Aref) = %.3e&quot;, final.A_l2);
+      fontsize = 18)
+
+final_path = joinpath(output_dir, &quot;monobanded_linear_shear_refraction_final.png&quot;)
+save(final_path, fig_final)</code></pre><h2 id="Diagnostic-figure"><a class="docs-heading-anchor" href="#Diagnostic-figure">Diagnostic figure</a><a id="Diagnostic-figure-1"></a><a class="docs-heading-anchor-permalink" href="#Diagnostic-figure" title="Permalink"></a></h2><pre><code class="language-julia hljs">times = [frame.time for frame in frames]
+mass = [frame.mass / initial_mass - 1 for frame in frames]
+Kx_model = [frame.Kx for frame in frames]
+Ky_model = [frame.Ky for frame in frames]
+Kx_ref = [frame.Kx_ref for frame in frames]
+Ky_ref = [frame.Ky_ref for frame in frames]
+x_model = [frame.x for frame in frames]
+y_model = [frame.y for frame in frames]
+x_ref = [frame.x_ref for frame in frames]
+y_ref = [frame.y_ref for frame in frames]
+A_l2 = [frame.A_l2 for frame in frames]
+AKx_l2 = [frame.AKx_l2 for frame in frames]
+AKy_l2 = [frame.AKy_l2 for frame in frames]
+
+fig_diag = Figure(size = (1180, 820))
+dax1 = Axis(fig_diag[1, 1]; title = &quot;Action conservation&quot;,
+                                xlabel = &quot;t (s)&quot;, ylabel = &quot;relative mass error&quot;)
+dax2 = Axis(fig_diag[1, 2]; title = &quot;Wavevector refraction&quot;,
+                                xlabel = &quot;t (s)&quot;, ylabel = &quot;K&quot;)
+dax3 = Axis(fig_diag[2, 1]; title = &quot;Packet centroid&quot;,
+                                xlabel = &quot;x&quot;, ylabel = &quot;y&quot;, aspect = DataAspect())
+dax4 = Axis(fig_diag[2, 2]; title = &quot;Relative L2 errors&quot;,
+                                xlabel = &quot;t (s)&quot;, ylabel = &quot;relative L2&quot;)
+
+lines!(dax1, times, mass; color = :black)
+lines!(dax2, times, Kx_ref; color = :black, linestyle = :dash, label = &quot;Kx ref&quot;)
+lines!(dax2, times, Kx_model; color = :dodgerblue3, label = &quot;Kx model&quot;)
+lines!(dax2, times, Ky_ref; color = :gray35, linestyle = :dash, label = &quot;Ky ref&quot;)
+lines!(dax2, times, Ky_model; color = :orange2, label = &quot;Ky model&quot;)
+axislegend(dax2; position = :lb)
+lines!(dax3, x_ref, y_ref; color = :black, linestyle = :dash, label = &quot;reference&quot;)
+lines!(dax3, x_model, y_model; color = :dodgerblue3, linewidth = 3, label = &quot;model&quot;)
+axislegend(dax3; position = :lt)
+lines!(dax4, times, A_l2; color = :black, label = &quot;A&quot;)
+lines!(dax4, times, AKx_l2; color = :dodgerblue3, label = &quot;AKx&quot;)
+lines!(dax4, times, AKy_l2; color = :orange2, label = &quot;AKy&quot;)
+axislegend(dax4; position = :lt)
+
+diagnostics_path = joinpath(output_dir, &quot;monobanded_linear_shear_refraction_diagnostics.png&quot;)
+save(diagnostics_path, fig_diag)
+
+@printf(&quot;  wrote %s\n&quot;, movie_path)
+@printf(&quot;  wrote %s\n&quot;, final_path)
+@printf(&quot;  wrote %s\n&quot;, diagnostics_path)
+</code></pre><pre><code class="nohighlight hljs">  wrote /home/runner/work/Ripple.jl/Ripple.jl/docs/src/generated/examples/monobanded_linear_shear_refraction.mp4
+  wrote /home/runner/work/Ripple.jl/Ripple.jl/docs/src/generated/examples/monobanded_linear_shear_refraction_final.png
+  wrote /home/runner/work/Ripple.jl/Ripple.jl/docs/src/generated/examples/monobanded_linear_shear_refraction_diagnostics.png
+</code></pre><p><video src="../monobanded_linear_shear_refraction.mp4" controls="true" title><a href="../monobanded_linear_shear_refraction.mp4"></a></video></p><hr/><h3 id="Julia-version-and-environment-information"><a class="docs-heading-anchor" href="#Julia-version-and-environment-information">Julia version and environment information</a><a id="Julia-version-and-environment-information-1"></a><a class="docs-heading-anchor-permalink" href="#Julia-version-and-environment-information" title="Permalink"></a></h3><p>This example was executed with the following version of Julia:</p><pre><code class="language-julia hljs">using InteractiveUtils: versioninfo
+versioninfo()</code></pre><pre><code class="nohighlight hljs">Julia Version 1.12.6
+Commit 15346901f00 (2026-04-09 19:20 UTC)
+Build Info:
+  Official https://julialang.org release
+Platform Info:
+  OS: Linux (x86_64-linux-gnu)
+  CPU: 4 × AMD EPYC 9V74 80-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-18.1.7 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_NUM_THREADS = auto
+</code></pre><p>These were the top-level packages installed in the environment:</p><pre><code class="language-julia hljs">import Pkg
+Pkg.status()</code></pre><pre><code class="nohighlight hljs">Status `~/work/Ripple.jl/Ripple.jl/docs/Project.toml`
+  [13f3f980] CairoMakie v0.15.10
+  [e30172f5] Documenter v1.17.0
+  [daee34ce] DocumenterCitations v1.4.1
+  [63c18a36] KernelAbstractions v0.9.41
+  [98b081ad] Literate v2.21.0
+⌅ [9e8cae18] Oceananigans v0.107.7
+  [c2bd03f4] Ripple v0.1.0 `~/work/Ripple.jl/Ripple.jl`
+Info Packages marked with ⌅ have new versions available but compatibility constraints restrict them from upgrading. To see why use `status --outdated`
+</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../vortex_refraction/">« Wave Refraction Through A Barotropic Vortex</a><a class="docs-footer-nextpage" href="../coupled_wind_drift_instability/">Coupled Wind-Drift Instability »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Thursday 21 May 2026 19:07">Thursday 21 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
