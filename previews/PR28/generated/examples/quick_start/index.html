@@ -80,10 +80,10 @@ set!(model, N = (x, y, kx, ky) -&gt; begin
     exp(-((κ - κ0) / σκ)^2 - (sin(φ / 2)^2) / σφ^2)
 end);</code></pre><h2 id="Time-stepping"><a class="docs-heading-anchor" href="#Time-stepping">Time stepping</a><a id="Time-stepping-1"></a><a class="docs-heading-anchor-permalink" href="#Time-stepping" title="Permalink"></a></h2><p>200 RK3 steps of <span>$\Delta t = 0.05\,\mathrm{s}$</span>.</p><pre><code class="language-julia hljs">simulation = Simulation(model; Δt = 0.05, stop_iteration = 200)
 run!(simulation);</code></pre><pre><code class="nohighlight hljs">[ Info: Initializing simulation...
-[ Info:     ... simulation initialization complete (108.560 ms)
+[ Info:     ... simulation initialization complete (86.969 ms)
 [ Info: Executing initial time step...
-[ Info:     ... initial time step complete (1.737 seconds).
-[ Info: Simulation is stopping after running for 7.513 seconds.
+[ Info:     ... initial time step complete (1.456 seconds).
+[ Info: Simulation is stopping after running for 5.902 seconds.
 [ Info: Model iteration 200 equals or exceeds stop iteration 200.
 </code></pre><h2 id="Diagnostics"><a class="docs-heading-anchor" href="#Diagnostics">Diagnostics</a><a id="Diagnostics-1"></a><a class="docs-heading-anchor-permalink" href="#Diagnostics" title="Permalink"></a></h2><p>Each call below returns a <code>Field</code> whose underlying kernel runs on the same architecture as <code>model.action</code>. Indexing is 3-D <code>[i, j, Nz]</code> for a surface slab; <code>interior(field)[:, :, 1]</code> materializes a CPU <code>Matrix</code>.</p><pre><code class="language-julia hljs">m0_field   = m0(model.action)
 κrms_field = root_mean_square_wavenumber(model.action)
@@ -138,9 +138,9 @@ Build Info:
   Official https://julialang.org release
 Platform Info:
   OS: Linux (x86_64-linux-gnu)
-  CPU: 4 × AMD EPYC 7763 64-Core Processor
+  CPU: 4 × AMD EPYC 9V74 80-Core Processor
   WORD_SIZE: 64
-  LLVM: libLLVM-18.1.7 (ORCJIT, znver3)
+  LLVM: libLLVM-18.1.7 (ORCJIT, znver4)
   GC: Built with stock GC
 Threads: 1 default, 1 interactive, 1 GC (on 4 virtual cores)
 </code></pre><p>These were the top-level packages installed in the environment:</p><pre><code class="language-julia hljs">import Pkg
@@ -152,4 +152,4 @@ Pkg.status()</code></pre><pre><code class="nohighlight hljs">Status `~/work/Ripp
 ⌃ [9e8cae18] Oceananigans v0.107.6
   [c2bd03f4] Ripple v0.1.0 `~/work/Ripple.jl/Ripple.jl`
 Info Packages marked with ⌃ have new versions available and may be upgradable.
-</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../../examples/">« Overview</a><a class="docs-footer-nextpage" href="../source_only_fetch_limited_growth/">Source-Only Fetch-Limited Growth »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 July 2026 14:06">Tuesday 7 July 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../../examples/">« Overview</a><a class="docs-footer-nextpage" href="../source_only_fetch_limited_growth/">Source-Only Fetch-Limited Growth »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 July 2026 15:48">Tuesday 7 July 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -45,7 +45,7 @@ c₁ = centroid(last(envelopes))
 measured_group_speed = (c₁ - c₀) / (times[end] - times[1])
 @info &quot;group velocity&quot; analytic = ω_κ measured = measured_group_speed</code></pre><pre><code class="nohighlight hljs">┌ Info: group velocity
 │   analytic = 1.5660459763365826
-└   measured = 1.5179264720125365
+└   measured = 1.5179264720125363
 </code></pre><h2 id="Hovmöller-of-the-envelope"><a class="docs-heading-anchor" href="#Hovmöller-of-the-envelope">Hovmöller of the envelope</a><a id="Hovmöller-of-the-envelope-1"></a><a class="docs-heading-anchor-permalink" href="#Hovmöller-of-the-envelope" title="Permalink"></a></h2><p>The packet centroid tracks the dashed group-velocity ray <span>$x_0 + \omega_\kappa t$</span> while the envelope broadens — dispersive spreading set by <span>$\omega_{\kappa\kappa} =$</span> round(ω_κκ; digits = 3).</p><pre><code class="language-julia hljs">hovmoller = reduce(hcat, envelopes)
 
 fig1 = Figure(size = (760, 380))
@@ -85,9 +85,9 @@ Build Info:
   Official https://julialang.org release
 Platform Info:
   OS: Linux (x86_64-linux-gnu)
-  CPU: 4 × AMD EPYC 7763 64-Core Processor
+  CPU: 4 × AMD EPYC 9V74 80-Core Processor
   WORD_SIZE: 64
-  LLVM: libLLVM-18.1.7 (ORCJIT, znver3)
+  LLVM: libLLVM-18.1.7 (ORCJIT, znver4)
   GC: Built with stock GC
 Threads: 1 default, 1 interactive, 1 GC (on 4 virtual cores)
 </code></pre><p>These were the top-level packages installed in the environment:</p><pre><code class="language-julia hljs">import Pkg
@@ -99,4 +99,4 @@ Pkg.status()</code></pre><pre><code class="nohighlight hljs">Status `~/work/Ripp
 ⌃ [9e8cae18] Oceananigans v0.107.6
   [c2bd03f4] Ripple v0.1.0 `~/work/Ripple.jl/Ripple.jl`
 Info Packages marked with ⌃ have new versions available and may be upgradable.
-</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../translating_hurricane_swell/">« Swell Generation by a Translating Idealized Hurricane</a><a class="docs-footer-nextpage" href="../narrow_band_vortex_scattering/">Narrow-Band Wave Scattering by a Barotropic Vortex »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 July 2026 14:06">Tuesday 7 July 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../translating_hurricane_swell/">« Swell Generation by a Translating Idealized Hurricane</a><a class="docs-footer-nextpage" href="../narrow_band_vortex_scattering/">Narrow-Band Wave Scattering by a Barotropic Vortex »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Tuesday 7 July 2026 15:48">Tuesday 7 July 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
